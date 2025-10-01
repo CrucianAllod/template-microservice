@@ -1,0 +1,87 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: db
+    env_file:
+      - .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_PG_USER}
+      POSTGRES_PASSWORD: ${DB_PG_PASS}
+      POSTGRES_DB: ${DB_PG_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - micro_service_network
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: rabbitmq
+    env_file:
+      - .env
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    networks:
+      - micro_service_network
+
+  micro_service:
+    build: .
+    container_name: micro_service
+    env_file:
+      - .env
+    command: bash -c "source ./.venv/bin/activate && sh start-dev.sh"
+    volumes:
+      - "./src:/code/src"
+      - "./alembic:/app/alembic"
+    environment:
+      PYTHONPATH: /code:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - micro_service_network
+
+  consume_worker:
+    build: .
+    container_name: consume_worker
+    env_file:
+      - .env
+    command: bash -c "source ./.venv/bin/activate && python -m src.consume_worker"
+    volumes:
+      - "./src:/code/src"
+    environment:
+      PYTHONPATH: /code
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - micro_service_network
+
+volumes:
+  pg_data:
+  rabbitmq_data:
+
+networks:
+  micro_service_network:
+    driver: bridge
