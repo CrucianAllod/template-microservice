@@ -62,20 +62,18 @@ class SecurityConfig(BaseSettings):
         return timedelta(days=self.REFRESH_TOKEN_EXPIRE_DAYS)
 
 class RedisConfig(BaseSettings):
-    REDIS_HOST: str = "redis"
-    REDIS_PORT: int = 6379
-    REDIS_DB: int = 0
-    REDIS_USER: str = "default"
-    REDIS_PASSWORD: str = ""
-    REDIS_PREFIX: str = "local"
+    HOST: str = "redis"
+    PORT: int = 6379
+    DB: int = 0
+    USER: str = "default"
+    PASSWORD: str = ""
+    PREFIX: str = "local"
 
-    @property
-    def REDIS_LINK(self) -> str:
-        redis_address = f"{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DB}"
-        if self.REDIS_PASSWORD:
-            return f"redis://{self.REDIS_USER}:{self.REDIS_PASSWORD}@{redis_address}"
-
-        return f"redis://{redis_address}"
+    model_config = SettingsConfigDict(
+        env_prefix="REDIS_",
+        extra="ignore",
+        env_file=".env"
+    )
 
 class LoggingConfig(BaseSettings):
     LOG_LEVEL: str = "INFO"

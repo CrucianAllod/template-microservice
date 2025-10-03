@@ -1,32 +1,39 @@
 from abc import ABC, abstractmethod
-from collections.abc import Callable
-
-from redis.typing import AbsExpiryT, EncodableT, ExpiryT, KeyT, ResponseT
-
+from collections.abc import Awaitable, Callable
+from typing import Any
 
 class Cache(ABC):
     @abstractmethod
-    def get(self, key: KeyT) -> ResponseT:
+    async def get(self, key: str) -> str | None:
         pass
 
     @abstractmethod
-    def set(
-        self,
-        key: KeyT,
-        value: EncodableT,
-        *args: ExpiryT | AbsExpiryT | bool | None,
-        **kwargs: ExpiryT | AbsExpiryT | bool | None,
-    ) -> ResponseT:
+    async def set(self, key: str, value: str, ttl: int | None = None) -> None:
         pass
 
     @abstractmethod
-    def delete(self, *keys: KeyT) -> ResponseT:
+    async def delete(self, *keys: str) -> None:
         pass
 
     @abstractmethod
-    def exists(self, *keys: KeyT) -> ResponseT:
+    async def pop(self, key: str) -> str | None:
         pass
 
     @abstractmethod
-    def get_cached_or_call(self, key: KeyT, expire_time: ExpiryT) -> Callable:
+    async def keys(self, prefix: str = "") -> list[str]:
+        pass
+
+    @abstractmethod
+    async def clear(self) -> None:
+        pass
+
+    @abstractmethod
+    async def get_cached_or_call[T](
+            self,
+            func: Callable[..., Awaitable[T]],
+            *args: Any,
+            key: str,
+            ttl: int | None = None,
+            **kwargs: Any,
+    ) -> T:
         pass

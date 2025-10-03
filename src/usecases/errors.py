@@ -9,3 +9,7 @@ class AuthenticationError(Exception):
 class UserAlreadyExistsError(Exception):
     def __init__(self, message: str = "User already exists."):
         super().__init__(message)
+
+class ClientNotInitializedError(Exception):
+    def __init__(self, client_name: str = "Client"):
+        super().__init__(f"{client_name} has not been initialized.")

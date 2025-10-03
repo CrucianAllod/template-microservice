@@ -1,7 +1,7 @@
 [project]
-name = "moderation-service"
+name = "template-service"
 version = "0.1.0"
-description = "Add your description here"
+description = "Base pack"
 requires-python = ">=3.12"
 dependencies = [
     "aio-pika>=9.5.7",
