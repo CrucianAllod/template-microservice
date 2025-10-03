@@ -325,51 +325,6 @@ wheels = [
 ]
 
 [[package]]
-name = "moderation-service"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "aio-pika" },
-    { name = "alembic" },
-    { name = "asyncpg" },
-    { name = "bcrypt" },
-    { name = "cache" },
-    { name = "fastapi" },
-    { name = "httpx" },
-    { name = "passlib" },
-    { name = "psycopg2-binary" },
-    { name = "punq" },
-    { name = "pydantic-settings" },
-    { name = "python-jose" },
-    { name = "python-multipart" },
-    { name = "redis" },
-    { name = "sqlalchemy" },
-    { name = "tenacity" },
-    { name = "uvicorn" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "aio-pika", specifier = ">=9.5.7" },
-    { name = "alembic", specifier = ">=1.16.5" },
-    { name = "asyncpg", specifier = ">=0.30.0" },
-    { name = "bcrypt", specifier = "==4.0.1" },
-    { name = "cache", specifier = ">=1.0.3" },
-    { name = "fastapi", specifier = ">=0.117.1" },
-    { name = "httpx", specifier = ">=0.28.1" },
-    { name = "passlib", specifier = "==1.7.4" },
-    { name = "psycopg2-binary", specifier = ">=2.9.10" },
-    { name = "punq", specifier = ">=0.7.0" },
-    { name = "pydantic-settings", specifier = ">=2.10.1" },
-    { name = "python-jose", specifier = ">=3.5.0" },
-    { name = "python-multipart", specifier = ">=0.0.20" },
-    { name = "redis", specifier = ">=6.4.0" },
-    { name = "sqlalchemy", specifier = ">=2.0.43" },
-    { name = "tenacity", specifier = ">=9.1.2" },
-    { name = "uvicorn", specifier = ">=0.36.0" },
-]
-
-[[package]]
 name = "multidict"
 version = "6.6.4"
 source = { registry = "https://pypi.org/simple" }
@@ -738,6 +693,51 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/a7/a5/d6f429d43394057b67a6b5bbe6eae2f77a6bf7459d961fdb224bf206eee6/starlette-0.48.0.tar.gz", hash = "sha256:7e8cee469a8ab2352911528110ce9088fdc6a37d9876926e73da7ce4aa4c7a46", size = 2652949, upload-time = "2025-09-13T08:41:05.699Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/be/72/2db2f49247d0a18b4f1bb9a5a39a0162869acf235f3a96418363947b3d46/starlette-0.48.0-py3-none-any.whl", hash = "sha256:0764ca97b097582558ecb498132ed0c7d942f233f365b86ba37770e026510659", size = 73736, upload-time = "2025-09-13T08:41:03.869Z" },
+]
+
+[[package]]
+name = "template-service"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "aio-pika" },
+    { name = "alembic" },
+    { name = "asyncpg" },
+    { name = "bcrypt" },
+    { name = "cache" },
+    { name = "fastapi" },
+    { name = "httpx" },
+    { name = "passlib" },
+    { name = "psycopg2-binary" },
+    { name = "punq" },
+    { name = "pydantic-settings" },
+    { name = "python-jose" },
+    { name = "python-multipart" },
+    { name = "redis" },
+    { name = "sqlalchemy" },
+    { name = "tenacity" },
+    { name = "uvicorn" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "aio-pika", specifier = ">=9.5.7" },
+    { name = "alembic", specifier = ">=1.16.5" },
+    { name = "asyncpg", specifier = ">=0.30.0" },
+    { name = "bcrypt", specifier = "==4.0.1" },
+    { name = "cache", specifier = ">=1.0.3" },
+    { name = "fastapi", specifier = ">=0.117.1" },
+    { name = "httpx", specifier = ">=0.28.1" },
+    { name = "passlib", specifier = "==1.7.4" },
+    { name = "psycopg2-binary", specifier = ">=2.9.10" },
+    { name = "punq", specifier = ">=0.7.0" },
+    { name = "pydantic-settings", specifier = ">=2.10.1" },
+    { name = "python-jose", specifier = ">=3.5.0" },
+    { name = "python-multipart", specifier = ">=0.0.20" },
+    { name = "redis", specifier = ">=6.4.0" },
+    { name = "sqlalchemy", specifier = ">=2.0.43" },
+    { name = "tenacity", specifier = ">=9.1.2" },
+    { name = "uvicorn", specifier = ">=0.36.0" },
 ]
 
 [[package]]
